@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: pay-merchant-web-common
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: Administrator
+Implementation-Vendor-Id: com.merchant.web.common
+Build-Jdk: 1.8.0_181
+Implementation-URL: http://projects.spring.io/spring-boot/pay-mmc/pay-
+ mmc-web/pay-merchant-web-common/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+

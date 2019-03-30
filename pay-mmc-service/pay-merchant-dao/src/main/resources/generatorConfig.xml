@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="MMC" targetRuntime="MyBatis3" defaultModelType="flat">
+
+        <commentGenerator>
+        	<property name="suppressDate" value="false"/>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://shareit-pay-all-dev-cluster.cluster-c75hy7tqrzfr.ap-south-1.rds.amazonaws.com:3306/merchant?characterEncoding=utf8" userId="dev" password="fyH3Gs10Bdi9NaNDXvRajJoAV90IqSrT" />
+
+        <javaModelGenerator targetPackage="com.pay.merchant.entity" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator targetPackage="com.pay.merchant.mapper" type ="XMLMAPPER" targetProject="src/main/java" >
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+		
+         <table schema="" tableName="tb_users" domainObjectName="Users"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+               <generatedKey identity="true" column="id" sqlStatement="SELECT LAST_INSERT_ID()"/>
+        </table>
+         <!--<table schema="" tableName="tb_user_role" domainObjectName="UserRole"-->
+               <!--enableCountByExample="true" enableUpdateByExample="true"-->
+               <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+               <!--selectByExampleQueryId="true">-->
+               <!--<generatedKey identity="true" column="id" sqlStatement="SELECT LAST_INSERT_ID()"/>-->
+        <!--</table>-->
+         <!--<table schema="" tableName="tb_user_pay_auths" domainObjectName="UserPayAuths"-->
+               <!--enableCountByExample="true" enableUpdateByExample="true"-->
+               <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+               <!--selectByExampleQueryId="true">-->
+               <!--<generatedKey identity="true" column="id" sqlStatement="SELECT LAST_INSERT_ID()"/>-->
+        <!--</table>-->
+         <!--<table schema="" tableName="tb_user_merc_binding" domainObjectName="UserMercBinding"-->
+               <!--enableCountByExample="true" enableUpdateByExample="true"-->
+               <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+               <!--selectByExampleQueryId="true">-->
+               <!--<generatedKey identity="true" column="id" sqlStatement="SELECT LAST_INSERT_ID()"/>-->
+        <!--</table>-->
+         <!--<table schema="" tableName="tb_user_login_auths" domainObjectName="UserLoginAuths"-->
+               <!--enableCountByExample="true" enableUpdateByExample="true"-->
+               <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+               <!--selectByExampleQueryId="true">-->
+               <!--<generatedKey identity="true" column="id" sqlStatement="SELECT LAST_INSERT_ID()"/>-->
+        <!--</table>-->
+         <!--<table schema="" tableName="tb_sms_validate" domainObjectName="SmsValidate"-->
+               <!--enableCountByExample="true" enableUpdateByExample="true"-->
+               <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+               <!--selectByExampleQueryId="true">-->
+               <!--<generatedKey identity="true" column="id" sqlStatement="SELECT LAST_INSERT_ID()"/>-->
+        <!--</table>-->
+         <!--<table schema="" tableName="tb_role_permission" domainObjectName="RolePermission"-->
+               <!--enableCountByExample="true" enableUpdateByExample="true"-->
+               <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+               <!--selectByExampleQueryId="true">-->
+               <!--<generatedKey identity="true" column="id" sqlStatement="SELECT LAST_INSERT_ID()"/>-->
+        <!--</table>-->
+         <!--<table schema="" tableName="tb_role" domainObjectName="Role"-->
+               <!--enableCountByExample="true" enableUpdateByExample="true"-->
+               <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+               <!--selectByExampleQueryId="true">-->
+               <!--<generatedKey identity="true" column="id" sqlStatement="SELECT LAST_INSERT_ID()"/>-->
+        <!--</table>-->
+         <!--<table schema="" tableName="tb_permission" domainObjectName="Permission"-->
+               <!--enableCountByExample="true" enableUpdateByExample="true"-->
+               <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+               <!--selectByExampleQueryId="true">-->
+               <!--<generatedKey identity="true" column="id" sqlStatement="SELECT LAST_INSERT_ID()"/>-->
+        <!--</table>-->
+
+        
+    </context>
+</generatorConfiguration>

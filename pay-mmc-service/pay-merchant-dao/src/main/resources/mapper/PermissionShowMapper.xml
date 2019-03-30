@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pay.merchant.mapper.PermissionShowMapper">
+    <resultMap id="BaseResultMap" type="com.pay.merchant.entity.PermissionShow">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="ps_number" property="psNumber" jdbcType="VARCHAR"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="INTEGER"/>
+        <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+        <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="ps_id" property="psId" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.pay.merchant.entity.PermissionShow" extends="BaseResultMap">
+        <result column="father_ids" property="fatherIds" jdbcType="LONGVARCHAR"/>
+        <result column="child_ids" property="childIds" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, ps_number, is_deleted, created_time, updated_time, type, name
+  </sql>
+    <sql id="Blob_Column_List">
+    father_ids, child_ids
+  </sql>
+    <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs"
+            parameterType="com.pay.merchant.entity.PermissionShowExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from tb_permission_show
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterType="com.pay.merchant.entity.PermissionShowExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from tb_permission_show
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from tb_permission_show
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+     <sql id="Base_Column_List2">
+       id, ps_number, is_deleted, created_time, updated_time, type, name,father_ids,child_ids,ps_id
+     </sql>
+    <select id="selectPermissionShowByCondition" parameterType="com.pay.merchant.entity.PermissionShow"
+            resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List2"/>
+        from tb_permission_show
+        where  1=1
+            AND  is_deleted=0
+        <if test="psNumber != null">
+            AND ps_number=#{psNumber,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_permission_show
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.pay.merchant.entity.PermissionShowExample">
+        delete from tb_permission_show
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.pay.merchant.entity.PermissionShow">
+        <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tb_permission_show (ps_number, is_deleted, created_time,
+        updated_time, type, name,
+        father_ids, child_ids)
+        values (#{psNumber,jdbcType=VARCHAR}, #{isDeleted,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP},
+        #{updatedTime,jdbcType=TIMESTAMP}, #{type,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+        #{fatherIds,jdbcType=LONGVARCHAR}, #{childIds,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.pay.merchant.entity.PermissionShow">
+        <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tb_permission_show
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="psNumber != null">
+                ps_number,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="updatedTime != null">
+                updated_time,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="fatherIds != null">
+                father_ids,
+            </if>
+            <if test="childIds != null">
+                child_ids,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="psNumber != null">
+                #{psNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=INTEGER},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="fatherIds != null">
+                #{fatherIds,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="childIds != null">
+                #{childIds,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.pay.merchant.entity.PermissionShowExample"
+            resultType="java.lang.Integer">
+        select count(*) from tb_permission_show
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update tb_permission_show
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.psNumber != null">
+                ps_number = #{record.psNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="record.isDeleted != null">
+                is_deleted = #{record.isDeleted,jdbcType=INTEGER},
+            </if>
+            <if test="record.createdTime != null">
+                created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.updatedTime != null">
+                updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.type != null">
+                type = #{record.type,jdbcType=INTEGER},
+            </if>
+            <if test="record.name != null">
+                name = #{record.name,jdbcType=VARCHAR},
+            </if>
+            <if test="record.fatherIds != null">
+                father_ids = #{record.fatherIds,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="record.childIds != null">
+                child_ids = #{record.childIds,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExampleWithBLOBs" parameterType="map">
+        update tb_permission_show
+        set id = #{record.id,jdbcType=INTEGER},
+        ps_number = #{record.psNumber,jdbcType=VARCHAR},
+        is_deleted = #{record.isDeleted,jdbcType=INTEGER},
+        created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+        updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+        type = #{record.type,jdbcType=INTEGER},
+        name = #{record.name,jdbcType=VARCHAR},
+        father_ids = #{record.fatherIds,jdbcType=LONGVARCHAR},
+        child_ids = #{record.childIds,jdbcType=LONGVARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update tb_permission_show
+        set id = #{record.id,jdbcType=INTEGER},
+        ps_number = #{record.psNumber,jdbcType=VARCHAR},
+        is_deleted = #{record.isDeleted,jdbcType=INTEGER},
+        created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+        updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+        type = #{record.type,jdbcType=INTEGER},
+        name = #{record.name,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.pay.merchant.entity.PermissionShow">
+        update tb_permission_show
+        <set>
+            <if test="psNumber != null">
+                ps_number = #{psNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=INTEGER},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="fatherIds != null">
+                father_ids = #{fatherIds,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="childIds != null">
+                child_ids = #{childIds,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.pay.merchant.entity.PermissionShow">
+    update tb_permission_show
+    set ps_number = #{psNumber,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      father_ids = #{fatherIds,jdbcType=LONGVARCHAR},
+      child_ids = #{childIds,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.pay.merchant.entity.PermissionShow">
+    update tb_permission_show
+    set ps_number = #{psNumber,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

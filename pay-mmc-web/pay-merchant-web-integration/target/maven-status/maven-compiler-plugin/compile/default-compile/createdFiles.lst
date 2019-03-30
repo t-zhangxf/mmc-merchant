@@ -1,0 +1,4 @@
+com\merchant\web\integration\feignClient\TradeServerClient.class
+com\merchant\web\integration\feignClient\MerchantServerClient.class
+com\merchant\web\integration\feignClient\EmailServerClient.class
+com\merchant\web\integration\feignClient\PermissionServerClient.class

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.merchant.web.mapper.TbPermissionShowMapper">
+    <resultMap id="BaseResultMap" type="com.merchant.web.entity.TbPermissionShow">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="ps_number" property="psNumber" jdbcType="VARCHAR"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="INTEGER"/>
+        <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+        <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="father_ids" property="fatherIds" jdbcType="VARCHAR"/>
+        <result column="child_ids" property="childIds" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, ps_number, is_deleted, created_time, updated_time, type, name,father_ids,child_ids
+    </sql>
+    <select id="selectPermissionShows" parameterType="com.merchant.web.common.entity.vo.PermissionShowVo"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_permission_show p
+        where 1=1 and is_deleted=0
+        <if test="type != null">
+            AND p.type =#{type,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+</mapper>

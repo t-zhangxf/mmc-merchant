@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: pay-merchant-manage
+Implementation-Version: 1.0-SNAPSHOT
+Built-By: Administrator
+Implementation-Vendor-Id: com.pay.merchant.manage
+Build-Jdk: 1.8.0_181
+Implementation-URL: http://projects.spring.io/spring-boot/pay-mmc/pay-
+ mmc-service/pay-merchant-manage/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+

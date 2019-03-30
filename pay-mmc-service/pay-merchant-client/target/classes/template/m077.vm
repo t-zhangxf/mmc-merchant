@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="googlebot" content="noindex"/>
+    <meta name="robots" content="boindex, nofollow"/>
+    <title>Notification - Access permission has changed.</title>
+</head>
+<body marginheight=0 marginwidth=0 topmargin=0 leftmargin=0 style="height: 100% !important; margin: 0; padding: 0; width: 100% !important; min-width: 100%;">
+<table border="0" bgcolor="#F0F2F5" width="100%" cellspacing="0" cellpadding="0" style="padding: 40px; background: #F0F2F5">
+    <tr>
+        <td>
+            <table align="center" width="680" cellspacing="0" cellpadding="0"  style="width: 680px; overflow: visible;">
+                <tr>
+                    <td align="right" valign="middle" width="46%"><img border="0" src="http://img-cdn.shareitpay.in/20190307/20190307061605306lNioxkufyymMgvy.png" alt="SHAREit" style="display:inline-block; outline:none; text-decoration:none; -ms-interpolation-mode:bicubic; border:none; margin-right: 10px"></td>
+                    <td align="left" valign="middle" width="54%"><span style="display: inline-block; white-space: nowrap; color: #606266; font-size: 28px; font-family: HelveticaNeue, 'Microsoft Yahei', 'STXihei'; margin-left: 10px;">Merchant Platform</span></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table align="center" border="0" width="680" style="display: block; width: 680px; padding: 40px; margin-top: 20px; margin-left: auto; margin-right: auto; background: #FFFFFF; overflow: visible; border:solid 1px #DCDFE6; font-family: Verdana, 'Microsoft Yahei', 'STXihei'" cellspacing="0" cellpadding="0">
+                <tbody>
+                <tr><td style="color: #303133; font-size: 16px; font-weight: bolder">Dear Sir / Madam,</td></tr>
+                <tr><td style="color: #303133; font-size: 16px"><span style="display: block; margin-top: 20px">Please note that the below Merchant ID has revoked access rights for your ID, which means the following Login ID is not able to access related services.</span></td></tr>
+                <tr>
+                    <td>
+                  <span style="display: block; margin: 20px 0px;">
+                    <table border="1" align="center" width="100%" cellspacing="0" cellpadding="10" style="border:solid 1px #EBEEF5; border-collapse: collapse">
+                      <tr>
+                        <td bgcolor="#F8F9FC" width="33%" style="width: 33%; background: #F8F9FC; color: #909399; font-size: 13px;">Merchant Name</td>
+                        <td width="67%" style="width: 67%; font-size: 13px">${merc_nm}</td>
+                      </tr>
+                      <tr>
+                        <td bgcolor="#F8F9FC" width="33%" style="width: 33%; background: #F8F9FC; color: #909399; font-size: 13px;">Merchant ID</td>
+                        <td width="67%" style="width: 67%; font-size: 13px">${merc_id}</td>
+                      </tr>
+                      <tr>
+                        <td bgcolor="#F8F9FC" width="33%" style="width: 33%; background: #F8F9FC; color: #909399; font-size: 13px;">Login ID</td>
+                        <td width="67%" style="width: 67%; font-size: 13px">${email}</td>
+                      </tr>
+                    </table>
+                  </span>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr><td><hr noshade size="1" style="border-color: #EBEEF5; display: block; margin: 20px 0px"/><td></tr>
+                <tr><td style="color: #C0C4CC; font-size: 14px">This service mail is sent automatically by SHAREit system. Do not reply directly. Any query or suggestion, you can access us by contacting: help_paybiz@ushareit.com</td></tr>
+                </tfoot>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

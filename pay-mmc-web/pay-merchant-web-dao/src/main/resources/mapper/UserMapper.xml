@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.merchant.web.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.merchant.web.entity.User">
+        <id column="user_no" property="userNo" jdbcType="VARCHAR"/>
+        <id column="email" property="email" jdbcType="VARCHAR"/>
+        <id column="identity_type" property="identityType" jdbcType="VARCHAR"/>
+        <id column="identifier" property="identifier" jdbcType="VARCHAR"/>
+        <id column="credential" property="credential" jdbcType="VARCHAR"/>
+        <id column="user_status" property="userStatus" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        tla.user_no,tla.identity_type,tla.identifier,tla.credential
+    </sql>
+    <select id="selectUseInfoByCondition" resultMap="BaseResultMap" parameterType="com.merchant.web.vo.UserVo">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_user_login_auths tla,tb_users tu
+        WHERE tla.user_no=tu.user_no
+        AND tla.is_deleted=0
+        AND tu.is_deleted=0
+        <if test="userNo != null">
+            AND tla.user_no =#{userNo,jdbcType=VARCHAR}
+        </if>
+        <if test="credential != null">
+            AND tla.credential = #{credential,jdbcType=VARCHAR}
+        </if>
+        <if test="userStatus != null">
+            AND tu.user_status = #{userStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="identityType != null">
+            AND tla.identity_type = #{identityType,jdbcType=VARCHAR}
+        </if>
+        <if test="identifier != null">
+            AND tla.identifier = #{identifier,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <resultMap id="BaseUserInfoResultMap" type="com.merchant.web.Do.UserInfoDo">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <id column="email" property="email" jdbcType="VARCHAR"/>
+        <id column="mobile" property="mobile" jdbcType="VARCHAR"/>
+        <id column="user_no" property="userNo" jdbcType="VARCHAR"/>
+        <id column="user_status" property="userStatus" jdbcType="VARCHAR"/>
+        <id column="identifier" property="identifier" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_User_info_Column_List">
+        tu.email,tu.mobile,tu.user_no,tu.user_status,la.identifier,la.id
+    </sql>
+    <select id="selectUserInfoByUser" parameterType="com.merchant.web.vo.UserInfoVo" resultMap="BaseUserInfoResultMap">
+        SELECT
+        <include refid="Base_User_info_Column_List"/>
+        FROM tb_users tu,tb_user_login_auths la
+        WHERE 1=1
+        AND tu.is_deleted=0
+        AND la.is_deleted=0
+        AND tu.user_no=la.user_no
+        <if test="userStatus != null">
+            AND tu.user_status = #{userStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="email != null">
+            AND tu.email = #{email,jdbcType=VARCHAR}
+        </if>
+        <if test="identityType != null">
+            AND la.identity_type = #{identityType,jdbcType=VARCHAR}
+        </if>
+        <if test="credential != null">
+            AND la.credential = #{credential,jdbcType=VARCHAR}
+        </if>
+        <if test="activeStatus != null">
+            AND tu.active_status = #{activeStatus,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <resultMap id="BasePermissionResultMap" type="com.merchant.web.Do.UserRolePermissionDo">
+        <id column="create_time" property="startDate" jdbcType="TIMESTAMP"/>
+        <id column="email" property="email" jdbcType="VARCHAR"/>
+        <id column="user_type" property="roleType" jdbcType="VARCHAR"/>
+        <id column="user_no" property="userNo" jdbcType="VARCHAR"/>
+        <id column="active_status" property="userStatus" jdbcType="VARCHAR"/>
+        <id column="permit_str" property="permitStr" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Permission_Column_List">
+          tu.user_no,tu.email,tu.active_status,tm.user_type,tu.create_time,tm.merc_id
+    </sql>
+    <select id="findCustomerPermissionListByMerchantNo"
+            parameterType="com.merchant.web.common.entity.vo.UserRolePermissionVo" resultMap="BasePermissionResultMap">
+        SELECT
+        <include refid="Base_Permission_Column_List"/>,
+        (<include refid="Permission"/>) AS permit_str
+        FROM tb_user_merc_binding tm,tb_users tu
+        WHERE tm.user_no =tu.user_no
+        AND tm.is_deleted=0 AND tu.is_deleted=0
+        AND tu.user_status=0 AND tm.merc_id =#{merchantId,jdbcType=VARCHAR}
+        <if test="email != null and email!=''">
+            AND tu.email = #{email,jdbcType=VARCHAR}
+        </if>
+        ORDER BY tu.create_time DESC
+    </select>
+    <sql id="Permission">
+      SELECT GROUP_CONCAT(DISTINCT tp.ps_number) FROM  tb_users tus, tb_user_role ur,tb_role tr,tb_role_permission rp,tb_permission tp
+      WHERE tus.user_no=ur.user_no
+            AND ur.role_id=tr.id        AND tr.id=rp.role_id
+            AND rp.permission_id=tp.id  AND ur.is_deleted=0
+            AND tr.is_deleted=0         AND rp.is_deleted=0
+            AND tp.is_deleted=0         AND tp.attr_id=1
+            AND rp.is_show=1            AND tus.user_no=tu.user_no
+     </sql>
+    <insert id="insertUser" parameterType="com.merchant.web.entity.UserBind">
+      insert into tb_users
+       (user_no,email,creator,modifier)
+        values
+      ( #{userNo,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{creator,jdbcType=VARCHAR},#{modifier,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertBind" parameterType="com.merchant.web.entity.UserBind">
+      insert into tb_user_merc_binding
+       (user_no,user_type,merc_id,status,bus_cnl,creator,modifier)
+        values
+       (#{userNo,jdbcType=VARCHAR},#{userType,jdbcType=VARCHAR},#{merChantId,jdbcType=VARCHAR},#{status,jdbcType=VARCHAR},#{busCnl,jdbcType=VARCHAR},#{creator,jdbcType=VARCHAR},#{modifier,jdbcType=VARCHAR})
+    </insert>
+    <select id="findUserBindInfoByUserMerchant" parameterType="com.merchant.web.entity.UserBind"
+            resultMap="BaseUserInfoResultMap">
+     SELECT DISTINCT tu.user_no,tu.mobile,tu.email FROM
+               tb_users tu,tb_user_login_auths tul,tb_user_merc_binding tumb
+            WHERE   tu.user_no=tul.user_no  AND tul.user_no=tumb.user_no
+                    AND tu.is_deleted=0     AND tul.is_deleted=0
+                    AND tumb.is_deleted=0   AND tu.user_status=0
+            <if test="email != null">
+                    AND tu.email = #{email,jdbcType=VARCHAR}
+            </if>
+            <if test="merChantId != null">
+                    AND tumb.merc_id =#{merChantId,jdbcType=VARCHAR}
+            </if>
+            <if test="bindStatus != null">
+                AND tumb.status in
+               <foreach collection="bindStatus" index="index" item="item" open="(" separator="," close=")">
+                  #{item}
+               </foreach>
+           </if>
+    </select>
+    <resultMap id="BaseMerchantResultMap" type="com.merchant.web.entity.TbUserMerchantBind">
+        <result column="merc_id" property="mercId" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="selectUserMerchantByUserNo" parameterType="com.merchant.web.entity.UserBind" resultMap="BaseMerchantResultMap">
+         SELECT DISTINCT tum.merc_id    FROM    tb_user_merc_binding tum,tb_users tu,tb_user_login_auths tla
+         WHERE   tum.user_no=tu.user_no  AND  tu.user_no=tla.user_no
+         AND  tu.user_status=0           AND  tu.active_status=1
+         AND  tu.is_deleted=0            AND  tum.is_deleted=0
+         AND  tla.is_deleted=0           AND  tum.status=1
+         AND  tu.user_no =#{userNo,jdbcType=VARCHAR}
+    </select>
+    <update id="updateUserStatusByUserNo" parameterType="com.merchant.web.entity.UserBind">
+        update tb_users tu set tu.active_status=#{activeStatus,jdbcType=TINYINT} where tu.user_no =#{userNo,jdbcType=VARCHAR}
+    </update>
+</mapper>
