@@ -2,8 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.mm.serive</groupId>
-    <artifactId>pay-mmc-service</artifactId>
+    <groupId>merchant.serive</groupId>
+    <artifactId>merchant-service</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>pay-merchant-manage</module>
@@ -13,11 +13,11 @@
         <module>pay-merchant-dao</module>
         <module>pay-merchant-integration</module>
     </modules>
-    <name>pay-mmc-service</name>
+    <name>merchant-service</name>
     <packaging>pom</packaging>
     <parent>
-            <groupId>com.shareit.mmc</groupId>
-            <artifactId>pay-mmc</artifactId>
+            <groupId>com.mmc.merchant</groupId>
+            <artifactId>mmc-merchant</artifactId>
             <version>1.0-SNAPSHOT</version>
     </parent>
     <properties>
